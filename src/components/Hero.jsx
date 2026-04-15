@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import video1 from "../assets/video/Loop Salontopper.mp4";
 import video2 from "../assets/video/petrolhead-loop.mp4";
 
@@ -44,13 +44,27 @@ const cards = [
     y: -8,
     hoverY: -16,
     hoverShiftX: 14,
-    hiddenMobile: true,
   },
 ];
 
 const Hero = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [flippedMap, setFlippedMap] = useState({});
+  const [screenWidth, setScreenWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 1280
+  );
+
+  useEffect(() => {
+    const handleResize = () => setScreenWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const visibleCards = useMemo(() => {
+    if (screenWidth < 640) return cards.slice(0, 2); // less than sm
+    if (screenWidth < 768) return cards.slice(0, 3); // sm
+    return cards; // md and above
+  }, [screenWidth]);
 
   const handleEnter = (index) => {
     setHoveredIndex(index);
@@ -90,42 +104,46 @@ const Hero = () => {
     if (index === 0) return 0;
 
     const baseOverlap =
-      window.innerWidth >= 1280
+      screenWidth >= 1280
         ? -64
-        : window.innerWidth >= 768
+        : screenWidth >= 768
         ? -24
-        : window.innerWidth >= 640
+        : screenWidth >= 640
         ? -16
         : -10;
 
     const hoverGap =
-      window.innerWidth >= 1280
+      screenWidth >= 1280
         ? 28
-        : window.innerWidth >= 768
+        : screenWidth >= 768
         ? 18
-        : window.innerWidth >= 640
+        : screenWidth >= 640
         ? 14
         : 10;
 
     if (hoveredIndex === null) return baseOverlap;
 
-    // hovered card er age gap
     if (index === hoveredIndex) return hoverGap;
-
-    // hovered card er porer gap
     if (index === hoveredIndex + 1) return hoverGap;
 
     return baseOverlap;
   };
 
   return (
-    <section className=" px-4 md:px-8 lg:px-12 pt-10 md:pt-14 lg:pt-40 pb-16 overflow-hidden">
+    <section className="px-4 md:px-8 lg:px-12 pt-30 md:pt-40 pb-16 overflow-hidden">
       <div>
         <div className="max-w-245">
-          <h1 className="text-black font-semibold tracking-[-0.06em] leading-[0.9] text-[52px] sm:text-[72px] md:text-[92px] lg:text-[110px]">
+          <h1 className="hidden md:block text-black font-semibold tracking-[-0.06em] leading-[0.9] text-[52px] sm:text-[72px] md:text-[92px] lg:text-[110px]">
             Get Hyped. Get
             <br />
             Noticed. Get Results.
+          </h1>
+
+          <h1 className="md:hidden text-black font-semibold tracking-[-1px] leading-[1em] text-[60px] ">
+            Get Hyped.
+            <br />
+             Get
+            Noticed. <br />Get Results.
           </h1>
 
           <p className="mt-6 max-w-[320px] text-[24px] leading-[1.1] font-semibold text-black">
@@ -133,21 +151,20 @@ const Hero = () => {
           </p>
         </div>
 
-        <div className="mt-25 flex items-end justify-center xl:justify-start px-2 md:px-4 lg:px-0 overflow-visible">
-          {cards.map((item, index) => {
+        <div className="mt-15 md:mt-25 flex items-end justify-center  xl:justify-start px-2 md:px-4 lg:px-0 overflow-visible">
+          {visibleCards.map((item, index) => {
             const isHovered = hoveredIndex === index;
-            const visibilityClass = item.hiddenMobile ? "hidden md:block" : "block";
 
             const baseClass = `
               relative shrink-0
-              w-[158px] h-[220px]
+              w-[185px] h-[230px]
               sm:w-[200px] sm:h-[270px]
               md:w-[220px] md:h-[295px]
               lg:w-[250px] lg:h-[330px]
               xl:w-[380px] xl:h-[470px]
               rounded-xl overflow-hidden
               will-change-transform
-              ${visibilityClass}
+              mx-auto 
               ${isHovered ? "z-30" : "z-10"}
             `;
 

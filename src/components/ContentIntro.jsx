@@ -1,7 +1,7 @@
 import React from "react";
 import girlImage from "../assets/content-intro-img.webp";
-import { BsArrowDown, BsArrowRight } from "react-icons/bs";
-import { FaArrowDown } from "react-icons/fa";
+import {BsArrowDown, BsArrowRight} from "react-icons/bs";
+import {FaArrowDown} from "react-icons/fa";
 
 const ContentIntro = () => {
   return (
@@ -14,8 +14,8 @@ const ContentIntro = () => {
           </h2>
         </div>
 
-        <div className="mt-15 md:mt-20    gap-7  flex md:items-center items-end md:gap-16 lg:gap-60">
-          <div className="w-32 h-49 md:w-64 md:h-80  overflow-hidden rounded-xl ">
+        <div className="mt-15 md:mt-20    gap-10 flex flex-col items-center sm:flex-row md:items-center sm:items-end md:gap-16 lg:gap-60">
+          <div className="w-[80%] md:w-64 md:h-80 rotate-3 md:rotate-0 overflow-hidden rounded-xl ">
             <img
               src={girlImage}
               alt="Team portrait"
@@ -31,38 +31,35 @@ const ContentIntro = () => {
             </p>
 
             <button className="mt-2.5 md:mt-5 group relative inline-block ">
-                         <span className="block rounded-xl border-2 border-[#6f6a63] transition-transform duration-300 ease-[cubic-bezier(0.34,2.27,0.64,1)] will-change-transform group-hover:skew-y-[-4deg] group-hover:-rotate-1 group-hover:scale-[1.02] group-active:skew-y-[-4deg] group-active:-rotate-1 group-active:scale-[0.98] bg-[#FAF4EC]">
-                           <span className="relative flex items-center gap-2 rounded-xl px-1 py-1 font-bold text-white sm:px-2 sm:py-1.5">
-                             <span className="absolute inset-0 rounded-xl bg-transparent" />
-                             <span className="relative z-10 text-xs md:text-base text-black ">
-                             Leer ons kennen
-                             </span>
-                             <span className="relative z-10 flex w-6 h-6 md:h-8 md:w-8 items-center justify-center rounded-lg bg-black text-white transition-transform duration-150 ease-out will-change-transform group-hover:scale-[0.92] group-active:scale-[0.92]">
-                               <BsArrowRight size={18} />
-                             </span>
-
-                            
-             
-                           </span>
-                         </span>
-                       </button>
+              <span className="block rounded-lg md:rounded-xl border-2 border-[#6f6a63] transition-transform duration-300 ease-[cubic-bezier(0.34,2.27,0.64,1)] will-change-transform group-hover:skew-y-[-4deg] group-hover:-rotate-1 group-hover:scale-[1.02] group-active:skew-y-[-4deg] group-active:-rotate-1 group-active:scale-[0.98] bg-[#FAF4EC]">
+                <span className="relative flex items-center gap-2 rounded-lg md:rounded-xl px-1 py-1 font-bold text-white sm:px-2 sm:py-1.5">
+                  <span className="absolute inset-0 rounded-lg md:rounded-xl bg-transparent" />
+                  <span className="relative z-10 text-xs md:text-base text-black ">
+                    Leer ons kennen
+                  </span>
+                  <span className="relative z-10 flex w-6 h-6 md:h-8 md:w-8 items-center justify-center rounded-lg bg-black text-white transition-transform duration-150 ease-out will-change-transform group-hover:scale-[0.92] group-active:scale-[0.92]">
+                    <BsArrowRight size={18} />
+                  </span>
+                </span>
+              </span>
+            </button>
           </div>
 
-          <div className="flex  items-end justify-end md:justify-start">
-           <button
-  aria-label="Scroll down"
-  className="group relative flex h-9 w-9 md:h-11 md:w-11 items-center justify-center overflow-hidden rounded-[10px] border border-black"
->
-  {/* Current arrow */}
-  <span className="absolute inset-0 flex items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-full">
-    <FaArrowDown className="text-orange-500" size={16} />
-  </span>
+          <div className="hidden sm:flex  items-end justify-end md:justify-start">
+            <button
+              aria-label="Scroll down"
+              className="group relative flex h-9 w-9 md:h-11 md:w-11 items-center justify-center overflow-hidden rounded-[10px] border border-black"
+            >
+              {/* Current arrow */}
+              <span className="absolute inset-0 flex items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-full">
+                <FaArrowDown className="text-orange-500" size={16} />
+              </span>
 
-  {/* Incoming arrow */}
-  <span className="absolute inset-0 flex items-center justify-center -translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0">
-    <FaArrowDown className="text-orange-500" size={16} />
-  </span>
-</button>
+              {/* Incoming arrow */}
+              <span className="absolute inset-0 flex items-center justify-center -translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0">
+                <FaArrowDown className="text-orange-500" size={16} />
+              </span>
+            </button>
           </div>
         </div>
       </div>

@@ -1,6 +1,5 @@
-import React, { useRef } from "react";
+import React, { createRef, useMemo, useLayoutEffect, useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
-// eslint-disable-next-line no-unused-vars
 import { motion, useScroll, useTransform } from "framer-motion";
 
 import cardVideo1 from "../assets/video/card-video1.mp4";
@@ -41,9 +40,9 @@ const features = [
     id: "03",
     tag: "Expertise",
     title: "Activation",
-    cardBorder: "border-white",
     cardBg: "bg-[#35C98F]",
     cardTagBg: "bg-white",
+    cardBorder: "border-white",
     cardButtonColor: "bg-white",
     heading: "Zichtbaar waar en wanneer het telt.",
     description:
@@ -55,11 +54,11 @@ const features = [
     id: "04",
     tag: "Expertise",
     title: "Data",
-    heading: "Inzichten die impact maken.",
     cardBg: "bg-[#0D8DFF]",
-    cardBorder: "border-white",
     cardTagBg: "bg-white",
+    cardBorder: "border-white",
     cardButtonColor: "bg-white",
+    heading: "Inzichten die impact maken.",
     description:
       "We duiken in de cijfers om te snappen wat écht werkt. En sturen jouw content scherp bij.",
     buttonText: "Meer over data",
@@ -67,92 +66,154 @@ const features = [
   },
 ];
 
-const FeatureCard = ({ item, index }) => {
-  const ref = useRef(null);
+const STICKY_TOP = "3vh";
 
+const FeatureCard = ({
+  item,
+  index,
+  total,
+  selfRef,
+  nextCardRef,
+  isLast,
+  cardHeight,
+}) => {
   const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
+    target: nextCardRef || selfRef,
+    offset: ["start end", "start start"],
   });
 
-  // straight at first, then fall right + fade out
-  const rotate = useTransform(scrollYProgress, [0, 0.65, 1], [0, 0, 7]);
-  const y = useTransform(scrollYProgress, [0, 0.65, 1], [0, -10, -90]);
-  const x = useTransform(scrollYProgress, [0, 0.65, 1], [0, 0, 40]);
-  const opacity = useTransform(scrollYProgress, [0, 0.7, 1], [1, 1, 0.12]);
-  const scale = useTransform(scrollYProgress, [0, 0.7, 1], [1, 0.985, 0.94]);
+  // next card উঠলে current card ধীরে ছোট হবে, একটু উপরে যাবে
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.94]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, -70]);
+  const rotate = useTransform(scrollYProgress, [0, 1], [0, -2]);
+  const filter = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["brightness(1)", "brightness(0.92)"]
+  );
 
   return (
     <div
-      ref={ref}
-      className="relative h-[115vh]"
-      style={{ zIndex: features.length - index }}
+      ref={selfRef}
+      className="relative "
+      style={{
+        // overlap feel আনতে height কমানো হয়েছে
+        height: cardHeight
+  ? `${cardHeight + 200}px`
+  : "120vh",
+marginBottom: index === total - 1 ? "0px" : "80px",
+      }}
     >
       <motion.article
-        style={{ rotate, y, x, opacity, scale }}
         className={`
-          sticky top-4 md:top-6 lg:top-8
-          rounded-[36px] ${item.cardBg}
+          sticky top-27.5 overflow-x-hidden rounded-[36px] ${item.cardBg}
           px-6 py-6 md:px-8 md:py-8 lg:px-12 lg:py-14
-          shadow-[0_8px_30px_rgba(0,0,0,0.06)]
+          shadow-[0_25px_50px_-12px_rgba(22,38,58,0.18)]
+          will-change-transform 
         `}
+        style={{
+          zIndex: 100 + index,
+          transformOrigin: "center top",
+          scale: isLast ? 1 : scale,
+          y: isLast ? 0 : y,
+          rotate: isLast ? 0 : rotate,
+          filter: isLast ? "brightness(1)" : filter,
+        }}
       >
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
           <div className="flex-1">
             <span
-              className={`inline-flex rounded-xl px-4 py-2 text-[18px] font-medium text-black ${item.cardTagBg}`}
+              className={`inline-flex rounded-lg md:rounded-xl px-2 py-1 md:px-4 md:py-2 md:text-[18px] font-medium text-black ${item.cardTagBg}`}
             >
               {item.tag}
             </span>
 
-            <div className="relative mt-6 flex items-start justify-between gap-4">
-              <h2 className="max-w-230 text-[46px] font-semibold leading-[0.92] tracking-[-0.05em] text-black sm:text-[64px] md:text-[88px] lg:text-[102px]">
+            <div className="relative mt-4 md:mt-6 flex items-start justify-between gap-4">
+              <h2 className="max-w-57.5 text-[46px] font-semibold leading-[0.92] tracking-[-0.05em] text-black sm:max-w-none sm:text-[64px] md:text-[88px] lg:text-[102px]">
                 {item.title}
               </h2>
 
-              <span className="absolute right-0 top-0 hidden text-[70px] font-semibold leading-none tracking-[-0.06em] text-white/35 md:block lg:text-[100px]">
+              <span
+                className={`absolute right-0 top-0 hidden text-[70px] font-semibold leading-none tracking-[-0.06em] md:block lg:text-[100px] ${
+                  item.cardBg === "bg-white" ? "text-[#e7e0d4]" : "text-white/35"
+                }`}
+              >
                 {item.id}
               </span>
             </div>
 
+            <div className="my-15 relative w-full max-w-45 shrink-0 md:hidden">
+              <div
+                className={`overflow-hidden rounded-[28px] border-[6px] ${item.cardBorder} -rotate-4`}
+              >
+                <video
+                  src={item.video}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="h-55 w-full object-cover"
+                />
+              </div>
+            </div>
+
             <div className="mt-10 max-w-140 lg:mt-28">
-              <h3 className="text-[24px] font-bold leading-[1.12] tracking-[-0.03em] text-[#111] md:text-[26px]">
+              <h3 className="text-[24px] font-semibold leading-[1.12] tracking-[-0.03em] text-[#111] md:text-[26px] md:font-bold">
                 {item.heading}
               </h3>
 
-              <p className="mt-5 text-[18px] font-semibold leading-[1.45] tracking-[-0.03em] text-[#111] md:text-[19px]">
+              <p className="mt-3.5 text-[18px] font-medium leading-[1.3] tracking-[-0.03em] text-[#111] md:mt-5 md:text-[19px] md:font-semibold md:leading-[1.45]">
                 {item.description}
               </p>
 
-              <button
-                className={`group mt-6 inline-flex items-center gap-3 rounded-xl ${
-                  item.cardButtonColor
-                } ${
-                  item.cardButtonColor === "bg-primary" ? "text-white" : "text-black"
-                } px-3 py-2 text-[16px] font-semibold transition-transform duration-300 hover:scale-[1.02]`}
-              >
-                <span>{item.buttonText}</span>
-
+              <button className="group relative mt-4 inline-block md:mt-6">
                 <span
-                  className={`relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl ${
-                    item.cardButtonColor === "bg-primary"
-                      ? "bg-white text-black"
-                      : "bg-black text-white"
-                  }`}
+                  className={`
+                    block rounded-xl
+                    transition-transform duration-300 ease-[cubic-bezier(0.34,2.27,0.64,1)]
+                    will-change-transform
+                    group-hover:skew-y-[-4deg] group-hover:-rotate-1 group-hover:scale-[1.02]
+                    group-active:skew-y-[-4deg] group-active:-rotate-1 group-active:scale-[0.98]
+                    ${item.cardButtonColor}
+                  `}
                 >
-                  <span className="absolute inset-0 flex items-center justify-center transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-full">
-                    <FaArrowRight size={16} />
-                  </span>
-                  <span className="absolute inset-0 flex items-center justify-center -translate-x-full transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0">
-                    <FaArrowRight size={16} />
+                  <span className="relative flex items-center gap-3 rounded-xl px-3 py-2 text-[14px] font-semibold md:text-[16px]">
+                    <span
+                      className={`relative z-10 ${
+                        item.cardButtonColor === "bg-primary"
+                          ? "text-white"
+                          : "text-black"
+                      }`}
+                    >
+                      {item.buttonText}
+                    </span>
+
+                    <span
+                      className={`
+                        relative z-10 flex h-9 w-9 items-center justify-center rounded-lg
+                        transition-transform duration-150 ease-out
+                        group-hover:scale-[0.92] group-active:scale-[0.92]
+                        ${
+                          item.cardButtonColor === "bg-primary"
+                            ? "bg-white text-black"
+                            : "bg-black text-white"
+                        }
+                      `}
+                    >
+                      <span className="absolute inset-0 flex items-center justify-center transition-transform duration-300">
+                        <FaArrowRight size={16} />
+                      </span>
+                    </span>
                   </span>
                 </span>
               </button>
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-65 shrink-0 sm:max-w-[320px] lg:mx-0 lg:max-w-105">
-            <div className={`overflow-hidden rounded-[28px] border-[6px] ${item.cardBorder} rotate-2`}>
+          <div className="relative mx-auto hidden w-full max-w-65 shrink-0 md:block sm:max-w-[320px] lg:mx-0 lg:max-w-105">
+            <div
+              className={`overflow-hidden rounded-[28px] border-[6px] ${item.cardBorder} rotate-2`}
+            >
               <video
                 src={item.video}
                 autoPlay
@@ -170,22 +231,41 @@ const FeatureCard = ({ item, index }) => {
 };
 
 const FeatureCardsSection = () => {
+  const refs = useMemo(() => features.map(() => createRef()), []);
+  const [cardHeight, setCardHeight] = useState(0);
+
+  useLayoutEffect(() => {
+    const measure = () => {
+      const firstCard = refs[0]?.current;
+      if (!firstCard) return;
+
+      const article = firstCard.querySelector("article");
+      if (!article) return;
+
+      setCardHeight(article.offsetHeight);
+    };
+
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [refs]);
+
   return (
-    <section className="mt-10 px-4 md:px-8 lg:px-10">
-      <div className="relative">
+    <section className="mt-10 px-4 md:px-8 lg:px-10 ">
+      <div className="mx-auto max-w-full">
         {features.map((item, index) => (
           <FeatureCard
             key={item.id}
             item={item}
             index={index}
+            total={features.length}
+            selfRef={refs[index]}
+            nextCardRef={index < features.length - 1 ? refs[index + 1] : null}
             isLast={index === features.length - 1}
+            cardHeight={cardHeight}
           />
-        
         ))}
       </div>
-
-
-
     </section>
   );
 };

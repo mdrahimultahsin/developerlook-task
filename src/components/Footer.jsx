@@ -133,9 +133,9 @@ const Footer = () => {
       ref={footerRef}
       onMouseEnter={handleFooterEnter}
       onMouseMove={handleFooterMove}
-      className="relative overflow-hidden"
+      className="relative overflow-hidden mt-20"
     >
-      <div className="absolute top-0 left-0 right-0 z-100 mx-auto h-1 w-[98%] bg-[#CCC8C1]" />
+      <div className="absolute top-0 left-0 right-0 z-150 mx-auto h-0.5 w-[98%] bg-[#CCC8C1]" />
       <div className="absolute top-0.5 left-0 right-0 z-100 mx-auto h-10 w-full bg-[#FAF4EC] sm:h-12 lg:h-15" />
 
       <div className="relative min-h-140 px-4 pt-16 sm:px-6 sm:pt-20 md:min-h-screen lg:px-0 lg:pt-50">
@@ -173,7 +173,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="absolute inset-x-0 bottom-0 left-0 z-10 h-145 sm:h-110 lg:h-80">
+        <div className="absolute inset-x-0 bottom-0 left-0 z-10 h-150 sm:h-110 lg:h-80">
           {/* Desktop */}
           <div className="hidden md:block absolute inset-0 overflow-hidden rounded-t-3xl rounded-b-none sm:rounded-2xl">
             <svg
@@ -222,7 +222,7 @@ const Footer = () => {
     </svg>
   </div>
 </div>
-          <div className="absolute bottom-43 left-4 z-20 sm:bottom-24 sm:left-6 lg:bottom-0 lg:left-0 lg:pl-10">
+          <div className="absolute bottom-46 left-4 z-20 sm:bottom-24 sm:left-6 lg:bottom-0 lg:left-0 lg:pl-10">
             <img
               className="w-32 sm:w-40 md:w-52 lg:w-80"
               src="/logo.png"
@@ -258,9 +258,9 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="relative z-20 flex h-full items-end justify-center gap-18 px-8 pb-12 sm:px-6 sm:pb-5 lg:ml-auto lg:max-w-215 lg:flex-row lg:items-end lg:justify-end lg:gap-10 lg:px-0 lg:pb-4 mt-10 lg:mt-0">
+          <div className=" relative z-20 flex h-full items-end justify-between gap-10 px-8 pb-12 sm:px-6 sm:pb-5 lg:ml-auto lg:max-w-215 lg:flex-row lg:items-end lg:justify-end lg:gap-10 lg:px-0 lg:pb-4 mt-5 lg:mt-0">
             <div className="flex flex-col gap-6  lg:gap-8">
-              <div className=" flex max-w-90 flex-wrap gap-2 sm:mt-14 lg:mt-0 lg:gap-3">
+              <div className=" flex max-w-90 flex-wrap gap-1.5 sm:mt-14 lg:mt-0 lg:gap-3">
                 {["Expertises", "Work", "About", "Contact"].map((item) => (
                   <FooterNavItem key={item} item={item} />
                 ))}
@@ -283,8 +283,8 @@ const Footer = () => {
                 </div>
               </div>
 
-              <div className="flex  justify-between gap-2 text-xs text-[#6f6a63] sm:flex-row sm:flex-wrap sm:gap-6 lg:gap-20">
-                <span>© 2025 Get Hyped</span>
+              <div className="flex  justify-between gap-2 text-[10px] md:text-xs text-[#6f6a63] sm:flex-row sm:flex-wrap sm:gap-6 lg:gap-20">
+                <span className="">© 2025 Get Hyped</span>
                 <span className="cursor-pointer hover:text-primary">
                   © Design by Dylan
                 </span>
@@ -404,7 +404,7 @@ const FooterNavItem = ({ item }) => {
   return (
     <a
       href={`#${item.toLowerCase()}`}
-      className="group relative block overflow-hidden rounded-lg px-1.5 md:px-3 py-1.5 md:py-2"
+      className="group relative block overflow-hidden rounded-lg px-1 md:px-3 py-1.5 md:py-2"
     >
       <span className="absolute inset-0 rounded-lg bg-white" />
 
@@ -425,11 +425,11 @@ const FooterNavItem = ({ item }) => {
       </span>
 
       <span className="relative z-10 grid overflow-hidden">
-        <span className="col-start-1 row-start-1 text-[11px] md:text-[15px] font-bold text-[#111111] transition-all duration-200 ease-out group-hover:-translate-y-8 group-hover:rotate-[-20deg] group-hover:opacity-0">
+        <span className="col-start-1 row-start-1 text-[10px] md:text-[15px] font-bold text-[#111111] transition-all duration-200 ease-out group-hover:-translate-y-8 group-hover:rotate-[-20deg] group-hover:opacity-0">
           {item}
         </span>
 
-        <span className="col-start-1 row-start-1 translate-y-8 rotate-[-30deg] text-[11px] md:text-[15px] font-bold text-white opacity-0 transition-all duration-300 delay-75 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-y-0 group-hover:rotate-0 group-hover:opacity-100">
+        <span className="col-start-1 row-start-1 translate-y-8 rotate-[-30deg] text-[10px] md:text-[15px] font-bold text-white opacity-0 transition-all duration-300 delay-75 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-y-0 group-hover:rotate-0 group-hover:opacity-100">
           {item}
         </span>
       </span>
