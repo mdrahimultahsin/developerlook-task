@@ -2,26 +2,35 @@ import React from "react";
 import girlImage from "../assets/content-intro-img.webp";
 import {BsArrowDown, BsArrowRight} from "react-icons/bs";
 import {FaArrowDown} from "react-icons/fa";
-
+import videoSrc from "../assets/video/intro-video.mp4"
 const ContentIntro = () => {
   return (
     <section className=" px-4 md:px-8  py-16 md:py-28">
       <div className="mx-auto max-w-350">
-        <div className="max-w-240 md:max-w-245 md:ml-22">
-          <h2 className="text-black text-[36px] tracking-[-1.46023px] md:tracking-[-2.56px] font-semibold leading-9 md:leading-16 sm:text-[52px]  md:text-[64px]">
+        <div className="sm:max-w-240 md:max-w-245 md:ml-22">
+          <h2 className="text-black text-[34px] tracking-[-1.46023px] md:tracking-[-2.56px] font-semibold leading-9 md:leading-16 sm:text-[52px]  md:text-[64px]">
             Wij maken content die opvalt. Die blijft hangen. Die jouw doelgroep
             raakt en jouw merk in beweging brengt. Snel, krachtig en energiek.
           </h2>
         </div>
 
-        <div className="mt-15 md:mt-20    gap-10 flex flex-col items-center sm:flex-row md:items-center sm:items-end md:gap-16 lg:gap-60">
-          <div className="w-[80%] md:w-64 md:h-80 rotate-3 md:rotate-0 overflow-hidden rounded-xl ">
-            <img
-              src={girlImage}
-              alt="Team portrait"
-              className="h-full w-full object-cover"
-            />
-          </div>
+        <div className="mt-10 sm:mt-15 md:mt-20    gap-10 flex flex-col items-center sm:flex-row md:items-center sm:items-end md:gap-16 lg:gap-60">
+        <div className="relative w-[80%] max-w-70 h-75 md:w-64 md:h-80 rotate-3 md:rotate-0 overflow-hidden rounded-xl">
+  <img
+    src={girlImage}
+    alt="Team portrait"
+    className="hidden sm:block h-full w-full object-cover"
+  />
+
+  <video
+    src={videoSrc}
+    autoPlay
+    muted
+    loop
+    playsInline
+    className="sm:hidden h-full w-full object-cover"
+  />
+</div>
 
           <div className="flex-1  md:max-w-130 ">
             <p className="text-black text-[16px] leading-5 md:leading-8.25 font-semibold md:tracking-[-0.768px] md:text-[24px] text-left ">

@@ -1,4 +1,3 @@
-
 import ContentIntro from "./components/ContentIntro";
 import ContentShowcase from "./components/ContentShowcase";
 import FeatureCardsSection from "./components/FeatureCardsSection";
@@ -8,29 +7,24 @@ import MarqueSection from "./components/MarqueSection";
 import Navbar from "./components/Navbar";
 
 import SmoothScroll from "./components/SmoothScroll";
-
+import Sticky from "./components/sticky";
 
 function App() {
-
-
-  
   return (
-    <SmoothScroll>
-    
+    <>
+      <Navbar />
 
-      
-        <Navbar />
-      
-    <main className="">
-                <Hero/>
-                <ContentIntro/>
-                <FeatureCardsSection/>
-                <ContentShowcase/>
-                <MarqueSection/>
-            </main>
+      <main className="relative w-full">
+        <Hero />
+        <ContentIntro />
+        {/* <Sticky /> */}
+        <FeatureCardsSection />
+        <ContentShowcase />
+        <MarqueSection />
+      </main>
 
       <Footer />
-    </SmoothScroll>
+    </>
   );
 }
 

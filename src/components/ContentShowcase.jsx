@@ -22,6 +22,7 @@ const cards = [
     poster: poster1,
     video: video1,
     offset: "md:translate-y-16",
+    rotate:"-rotate-2 sm:rotate-0",
   },
   {
     id: 2,
@@ -32,6 +33,7 @@ const cards = [
     poster: poster2,
     video: video2,
     offset: "-translate-y-10 md:-translate-y-4",
+    rotate:"rotate-1 sm:rotate-0",
   },
   {
     id: 3,
@@ -42,6 +44,7 @@ const cards = [
     poster: poster3,
     video: video3,
     offset: "-translate-y-20 md:-translate-y-20",
+    rotate:"-rotate-2 sm:rotate-0",
   },
 ];
 
@@ -66,18 +69,18 @@ const ShowcaseCard = ({ card }) => {
 
   return (
     <article
-      className={`group relative w-full max-w-50  md:max-w-105 ${card.offset} cursor-pointer `}
+      className={`group relative w-[95%] mx-auto   sm:max-w-50  md:max-w-105 ${card.offset} cursor-pointer `}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <div
         className={`
-          relative rounded-2xl md:rounded-[34px] border-5 md:border-8 ${card.borderColor} bg-black
-          transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
-          group-hover:-rotate-2 h-55 md:h-auto
+          relative rounded-2xl  border-5 md:border-8 ${card.borderColor} bg-black
+          transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${card.rotate}
+          group-hover:-rotate-2 h-100 sm:h-55 md:h-auto
         `}
       >
-        <div className="relative aspect-[0.7/1] md:aspect-[0.73/1] w-full overflow-hidden rounded-2xl">
+        <div className="relative h-full sm:aspect-[0.7/1] md:aspect-[0.73/1] w-full overflow-hidden rounded-lg">
           <img
             src={card.poster}
             alt={card.title.replace(/\n/g, " ")}
@@ -179,7 +182,7 @@ const ContentShowcase = () => {
           </button>
         </div>
 
-        <div className="md:px-16 mt-16 flex  items-end justify-center gap-x-4 gap-y-20 md:justify-between  md:gap-x-18">
+        <div className="md:px-16 mt-16 grid grid-cols-1 sm:grid-cols-3  sm:items-end sm:justify-center gap-x-4 gap-y-15 md:justify-between  md:gap-x-18">
           {cards.map((card) => (
             <ShowcaseCard key={card.id} card={card} />
           ))}

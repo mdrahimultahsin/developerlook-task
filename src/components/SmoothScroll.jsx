@@ -2,15 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 // eslint-disable-next-line no-unused-vars
 import { motion, useSpring, useTransform, useMotionValue } from "framer-motion";
 
-const SmoothScroll = ({ children }) => {
+const SmoothScroll = ({ children, native = false }) => {
   const wrapperRef = useRef(null);
   const contentRef = useRef(null);
-
   const [contentHeight, setContentHeight] = useState(0);
 
   const scrollY = useMotionValue(0);
 
-  // lower stiffness + higher damping = slower smoother scroll
   const smoothY = useSpring(scrollY, {
     stiffness: 55,
     damping: 18,
@@ -20,6 +18,8 @@ const SmoothScroll = ({ children }) => {
   const y = useTransform(smoothY, (value) => -value);
 
   useEffect(() => {
+    if (native) return;
+
     const measure = () => {
       if (!contentRef.current) return;
       setContentHeight(contentRef.current.getBoundingClientRect().height);
@@ -38,9 +38,11 @@ const SmoothScroll = ({ children }) => {
       resizeObserver.disconnect();
       window.removeEventListener("resize", measure);
     };
-  }, []);
+  }, [native]);
 
   useEffect(() => {
+    if (native) return;
+
     const updateScroll = () => {
       scrollY.set(window.scrollY);
     };
@@ -51,7 +53,11 @@ const SmoothScroll = ({ children }) => {
     return () => {
       window.removeEventListener("scroll", updateScroll);
     };
-  }, [scrollY]);
+  }, [scrollY, native]);
+
+  if (native) {
+    return <div className="relative w-full">{children}</div>;
+  }
 
   return (
     <>

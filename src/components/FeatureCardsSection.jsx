@@ -66,7 +66,7 @@ const features = [
   },
 ];
 
-const STICKY_TOP = "3vh";
+const STICKY_TOP = "24px";
 
 const FeatureCard = ({
   item,
@@ -82,43 +82,41 @@ const FeatureCard = ({
     offset: ["start end", "start start"],
   });
 
-  // next card উঠলে current card ধীরে ছোট হবে, একটু উপরে যাবে
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.94]);
-  const y = useTransform(scrollYProgress, [0, 1], [0, -70]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, -2]);
-  const filter = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["brightness(1)", "brightness(0.92)"]
-  );
+
+const y = 0;
+const rotate = 0;
+const scale = useTransform(scrollYProgress, [0, 1], [1, 0.97]);
+const filter = useTransform(
+  scrollYProgress,
+  [0, 1],
+  ["brightness(1)", "brightness(0.96)"]
+);
 
   return (
     <div
       ref={selfRef}
-      className="relative "
-      style={{
-        // overlap feel আনতে height কমানো হয়েছে
-        height: cardHeight
-  ? `${cardHeight + 200}px`
-  : "120vh",
-marginBottom: index === total - 1 ? "0px" : "80px",
-      }}
+      className="relative"
+     style={{
+  height: cardHeight ? `${cardHeight + 320}px` : "130vh",
+  marginTop: "0px",
+}}
     >
       <motion.article
         className={`
-          sticky top-27.5 overflow-x-hidden rounded-[36px] ${item.cardBg}
+          sticky overflow-x-hidden rounded-[36px] ${item.cardBg}
           px-6 py-6 md:px-8 md:py-8 lg:px-12 lg:py-14
           shadow-[0_25px_50px_-12px_rgba(22,38,58,0.18)]
-          will-change-transform 
+          will-change-transform
         `}
-        style={{
-          zIndex: 100 + index,
-          transformOrigin: "center top",
-          scale: isLast ? 1 : scale,
-          y: isLast ? 0 : y,
-          rotate: isLast ? 0 : rotate,
-          filter: isLast ? "brightness(1)" : filter,
-        }}
+     style={{
+  top: STICKY_TOP,
+  zIndex: 100 + index,
+  transformOrigin: "center top",
+  scale: isLast ? 1 : scale,
+  y: isLast ? 0 : y,
+  rotate: isLast ? 0 : rotate,
+  filter: isLast ? "brightness(1)" : filter,
+}}
       >
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
           <div className="flex-1">
@@ -251,8 +249,8 @@ const FeatureCardsSection = () => {
   }, [refs]);
 
   return (
-    <section className="mt-10 px-4 md:px-8 lg:px-10 ">
-      <div className="mx-auto max-w-full">
+  <section className="mt-10 px-4 md:px-8 lg:px-10 pb-30 overflow-visible">
+  <div className="mx-auto max-w-full overflow-visible">
         {features.map((item, index) => (
           <FeatureCard
             key={item.id}

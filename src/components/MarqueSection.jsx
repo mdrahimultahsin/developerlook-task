@@ -121,7 +121,7 @@ const MarqueSection = () => {
             <br />
             got hyped.
           </h2>
-          <h2 className="md:hidden max-w-155 text-[38px] font-semibold leading-20 tracking-[-1.2px] text-black">
+          <h2 className="md:hidden max-w-155 text-[38px] font-semibold leading-11 tracking-[-2.2px] text-black">
             These brands
             got hyped.
           </h2>
@@ -130,7 +130,7 @@ const MarqueSection = () => {
 
       <div
         ref={containerRef}
-        className="no-scrollbar marquee-drag-container md:mt-6 overflow-x-scroll px-4 md:px-8 cursor-pointer"
+        className="no-scrollbar marquee-drag-container mt-5 md:mt-6 overflow-x-scroll px-4 md:px-8 cursor-pointer"
       >
         <div className="flex w-max items-stretch gap-2 md:gap-5">
           {repeatedLogos.map((logo, index) => (

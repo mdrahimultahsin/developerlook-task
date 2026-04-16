@@ -139,7 +139,7 @@ const Footer = () => {
       <div className="absolute top-0.5 left-0 right-0 z-100 mx-auto h-10 w-full bg-[#FAF4EC] sm:h-12 lg:h-15" />
 
       <div className="relative min-h-140 px-4 pt-16 sm:px-6 sm:pt-20 md:min-h-screen lg:px-0 lg:pt-50">
-        <div className="relative  text-center">
+        <div className="hidden sm:block relative  text-center">
           <h2 className="mb-4 text-[46px] leading-none font-bold text-[#111] sm:text-[56px] lg:mb-2 lg:text-[90px]">
             Let’s Get Hyped!
           </h2>
@@ -173,7 +173,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="absolute inset-x-0 bottom-0 left-0 z-10 h-150 sm:h-110 lg:h-80">
+        <div className="absolute inset-x-0 bottom-0 left-0 z-10 h-276 sm:h-150 lg:h-80">
           {/* Desktop */}
           <div className="hidden md:block absolute inset-0 overflow-hidden rounded-t-3xl rounded-b-none sm:rounded-2xl">
             <svg
@@ -199,13 +199,13 @@ const Footer = () => {
               />
             </svg>
           </div>
-          {/* Mobile Shapes*/}
+          {/* Tablet Shapes*/}
           
-<div className="lg:hidden absolute inset-0 px-4 overflow-hidden">
+<div className="hidden sm:block md:hidden absolute inset-0 px-4 overflow-hidden">
   <div className="relative h-full w-full overflow-hidden rounded-t-3xl rounded-b-none">
     <svg
       className="absolute inset-0 h-full w-full"
-      viewBox="0 0 1000 290"
+      viewBox="0 0 1000 280"
       preserveAspectRatio="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -222,15 +222,38 @@ const Footer = () => {
     </svg>
   </div>
 </div>
-          <div className="absolute bottom-46 left-4 z-20 sm:bottom-24 sm:left-6 lg:bottom-0 lg:left-0 lg:pl-10">
+{/* Mobile  */}
+<div className=" sm:hidden absolute inset-0 px-4 overflow-hidden">
+  <div className="bg-#EAE4D8 relative h-full w-full overflow-hidden rounded-t-3xl rounded-b-none" style={{clipPath:"polygon(0 8%, 100% 0, 100% 100%, 0% 100%)"}}>
+    <svg
+      className="absolute inset-0 h-full w-full"
+      viewBox="0 0 1000 280"
+      preserveAspectRatio="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="
+          M 0 176.9
+          L 1000 147.9
+          L 1000 290
+          L 0 290
+          Z
+        "
+        fill="#EAE4D8"
+      />
+    </svg>
+  </div>
+</div>
+          <div className="absolute bottom-81 sm:bottom-46 sm:left-4 z-20   lg:bottom-0 lg:left-0 lg:pl-10">
             <img
-              className="w-32 sm:w-40 md:w-52 lg:w-80"
+              className="w-[90%]
+              mx-auto -rotate-6 sm:rotate-0 sm:w-32 md:w-52 lg:w-80"
               src="/logo.png"
               alt="Get Hyped"
             />
           </div>
 
-          <div className="absolute right-10 top-65 z-30 sm:right-6 sm:-top-6.5 lg:right-40 lg:-top-8">
+          <div className="hidden sm:block absolute right-10 top-65 z-30 sm:right-6 sm:-top-6.5 lg:right-40 lg:-top-8">
             <div className="relative h-18 w-18 rotate-10 sm:h-24 sm:w-24 lg:h-29 lg:w-29">
               <svg
                 viewBox="0 0 100 100"
@@ -258,16 +281,31 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className=" relative z-20 flex h-full items-end justify-between gap-10 px-8 pb-12 sm:px-6 sm:pb-5 lg:ml-auto lg:max-w-215 lg:flex-row lg:items-end lg:justify-end lg:gap-10 lg:px-0 lg:pb-4 mt-5 lg:mt-0">
-            <div className="flex flex-col gap-6  lg:gap-8">
-              <div className=" flex max-w-90 flex-wrap gap-1.5 sm:mt-14 lg:mt-0 lg:gap-3">
+        <div className="relative z-20 flex h-full flex-col justify-end px-6 top-3 sm:top-0 pb-4 sm:items-end sm:justify-between sm:px-6 sm:pb-12 lg:ml-auto lg:max-w-215 lg:flex-row lg:items-end lg:justify-end lg:gap-10 lg:px-0 lg:pb-4">
+            <div className="sm:hidden w-full flex justify-center">
+  <button className="group relative inline-block">
+    <span className="block transition-transform duration-300 ease-[cubic-bezier(0.34,2.27,0.64,1)] group-hover:skew-y-[-4deg] group-hover:-rotate-1 group-hover:scale-[1.02] group-active:scale-[0.98]">
+      <span className="relative flex items-center gap-2 rounded-xl px-2 py-1.5 font-bold text-white">
+        <span className="absolute inset-0 rounded-xl bg-primary" />
+        <span className="relative z-10 text-[12px]">
+          Get Hyped! Neem contact op
+        </span>
+        <span className="relative z-10 flex h-8 w-8 items-center justify-center rounded-lg bg-white transition-transform duration-150 ease-out group-hover:scale-[0.92] group-active:scale-[0.92]">
+          <img className="w-5" src={fireIcon} alt="" />
+        </span>
+      </span>
+    </span>
+  </button>
+</div>
+            <div className="mt-0.5 flex flex-col gap-4  lg:gap-8">
+              <div className=" flex justify-center sm:justify-start max-w-90 flex-wrap gap-2 sm:gap-1.5 mt-4 sm:mt-14 lg:mt-0 lg:gap-3">
                 {["Expertises", "Work", "About", "Contact"].map((item) => (
                   <FooterNavItem key={item} item={item} />
                 ))}
               </div>
 
-              <div className="flex items-center gap-2 md:gap-3 sm:flex-row sm:items-center sm:gap-4">
-                <span className="text-[12px] md:text-base font-bold text-[#111]">Follow us</span>
+              <div className="flex justify-center sm:justify-start items-center gap-2 md:gap-3 sm:flex-row sm:items-center sm:gap-4">
+                <span className="hidden sm:block text-[12px] md:text-base font-bold text-[#111]">Follow us</span>
 
                 <div className="flex gap-2">
                   {[<FaLinkedinIn />, <FaTiktok />, <FaInstagram />, <FaYoutube />].map(
@@ -283,7 +321,7 @@ const Footer = () => {
                 </div>
               </div>
 
-              <div className="flex  justify-between gap-2 text-[10px] md:text-xs text-[#6f6a63] sm:flex-row sm:flex-wrap sm:gap-6 lg:gap-20">
+              <div className="hidden sm:flex  justify-between gap-2 text-[10px] md:text-xs text-[#6f6a63] sm:flex-row sm:flex-wrap sm:gap-6 lg:gap-20">
                 <span className="">© 2025 Get Hyped</span>
                 <span className="cursor-pointer hover:text-primary">
                   © Design by Dylan
@@ -291,15 +329,15 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className="mt-5 flex flex-col gap-4 text-[#111] sm:mt-6 sm:flex-row sm:gap-10 lg:mt-0 lg:min-w-55 lg:flex-col lg:gap-2">
+            <div className="mt-3 items-center sm:items-start flex flex-col gap-2 text-[#111] sm:mt-6 sm:flex-row sm:gap-10 lg:mt-0 lg:min-w-55 lg:flex-col lg:gap-2">
               <div>
-                <p className="font-black text-[14px] md:text-base">Contact</p>
+                <p className="font-black text-[14px] md:text-base hidden sm:block">Contact</p>
                 <p className="mt-1 text-[13px] md:text-sm font-medium sm:mt-1.5">info@gethyped.nl</p>
                 <p className="text-[13px] md:text-sm font-medium">+31 6 1533 7496</p>
               </div>
 
               <div>
-                <p className="font-black text-[14px] md:text-base">Adress</p>
+                <p className="font-black text-[14px] md:text-base hidden sm:block">Adress</p>
                 <p className="mt-1 text-[13px] md:text-sm font-medium sm:mt-1.5">Beltrumstraat 6,</p>
                 <p className="text-[13px] md:text-sm font-medium">7141 AL Groenlo</p>
               </div>
@@ -307,6 +345,12 @@ const Footer = () => {
               <p className="cursor-pointer text-xs text-[#6f6a63] hover:text-primary">
                 Privacyvoorwaarden
               </p>
+              <div className="sm:hidden flex  flex-col justify-between gap-1 text-[10px] md:text-xs text-[#6f6a63] sm:flex-row sm:flex-wrap sm:gap-6 lg:gap-20">
+                <span className="">© 2025 Get Hyped</span>
+                <span className="cursor-pointer hover:text-primary">
+                  © Design by Dylan
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -404,7 +448,7 @@ const FooterNavItem = ({ item }) => {
   return (
     <a
       href={`#${item.toLowerCase()}`}
-      className="group relative block overflow-hidden rounded-lg px-1 md:px-3 py-1.5 md:py-2"
+      className="group relative block overflow-hidden rounded-lg px-2 md:px-3 py-1.5 md:py-2"
     >
       <span className="absolute inset-0 rounded-lg bg-white" />
 
@@ -425,11 +469,11 @@ const FooterNavItem = ({ item }) => {
       </span>
 
       <span className="relative z-10 grid overflow-hidden">
-        <span className="col-start-1 row-start-1 text-[10px] md:text-[15px] font-bold text-[#111111] transition-all duration-200 ease-out group-hover:-translate-y-8 group-hover:rotate-[-20deg] group-hover:opacity-0">
+        <span className="col-start-1 row-start-1 text-[12px] md:text-[15px] font-bold text-[#111111] transition-all duration-200 ease-out group-hover:-translate-y-8 group-hover:rotate-[-20deg] group-hover:opacity-0">
           {item}
         </span>
 
-        <span className="col-start-1 row-start-1 translate-y-8 rotate-[-30deg] text-[10px] md:text-[15px] font-bold text-white opacity-0 transition-all duration-300 delay-75 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-y-0 group-hover:rotate-0 group-hover:opacity-100">
+        <span className="col-start-1 row-start-1 translate-y-8 rotate-[-30deg] text-[12px] md:text-[15px] font-bold text-white opacity-0 transition-all duration-300 delay-75 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-y-0 group-hover:rotate-0 group-hover:opacity-100">
           {item}
         </span>
       </span>
