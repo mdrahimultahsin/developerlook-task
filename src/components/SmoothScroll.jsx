@@ -1,76 +1,27 @@
-import React, { useEffect, useRef, useState } from "react";
-// eslint-disable-next-line no-unused-vars
-import { motion, useSpring, useTransform, useMotionValue } from "framer-motion";
+import { useEffect } from "react";
+import Lenis from "@studio-freight/lenis";
 
-const SmoothScroll = ({ children, native = false }) => {
-  const wrapperRef = useRef(null);
-  const contentRef = useRef(null);
-  const [contentHeight, setContentHeight] = useState(0);
-
-  const scrollY = useMotionValue(0);
-
-  const smoothY = useSpring(scrollY, {
-    stiffness: 55,
-    damping: 18,
-    mass: 0.35,
-  });
-
-  const y = useTransform(smoothY, (value) => -value);
-
+const SmoothScroll = ({ children }) => {
   useEffect(() => {
-    if (native) return;
+    const lenis = new Lenis({
+      duration: 1.1, // smoothness
+      easing: (t) => 1 - Math.pow(1 - t, 3), // easeOutCubic
+      smooth: true,
+    });
 
-    const measure = () => {
-      if (!contentRef.current) return;
-      setContentHeight(contentRef.current.getBoundingClientRect().height);
-    };
-
-    measure();
-
-    const resizeObserver = new ResizeObserver(measure);
-    if (contentRef.current) {
-      resizeObserver.observe(contentRef.current);
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
     }
 
-    window.addEventListener("resize", measure);
+    requestAnimationFrame(raf);
 
     return () => {
-      resizeObserver.disconnect();
-      window.removeEventListener("resize", measure);
+      lenis.destroy();
     };
-  }, [native]);
+  }, []);
 
-  useEffect(() => {
-    if (native) return;
-
-    const updateScroll = () => {
-      scrollY.set(window.scrollY);
-    };
-
-    updateScroll();
-    window.addEventListener("scroll", updateScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", updateScroll);
-    };
-  }, [scrollY, native]);
-
-  if (native) {
-    return <div className="relative w-full">{children}</div>;
-  }
-
-  return (
-    <>
-      <div style={{ height: contentHeight }} />
-      <motion.div
-        ref={wrapperRef}
-        style={{ y }}
-        className="fixed inset-0 will-change-transform"
-      >
-        <div ref={contentRef}>{children}</div>
-      </motion.div>
-    </>
-  );
+  return <>{children}</>;
 };
 
 export default SmoothScroll;

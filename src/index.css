@@ -4,7 +4,31 @@
   --color-primary: #fa5424;
 }
 
+/* html {
+  scroll-behavior: smooth;
+}
 
+body {
+  overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+} */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Firefox */
+html {
+  scrollbar-width: none;
+}
+/* IE/Edge */
+body {
+  -ms-overflow-style: none;
+}
 
 .font-inter {
   font-family: "Inter", sans-serif;

@@ -244,7 +244,7 @@ const Footer = () => {
     </svg>
   </div>
 </div>
-          <div className="absolute bottom-81 sm:bottom-46 sm:left-4 z-20   lg:bottom-0 lg:left-0 lg:pl-10">
+          <div className="absolute bottom-82 sm:bottom-46 sm:left-4 z-20   lg:bottom-0 lg:left-0 lg:pl-10">
             <img
               className="w-[90%]
               mx-auto -rotate-6 sm:rotate-0 sm:w-32 md:w-52 lg:w-80"

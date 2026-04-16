@@ -139,7 +139,7 @@ const Hero = () => {
             Noticed. Get Results.
           </h1>
 
-          <h1 className="md:hidden text-black font-semibold tracking-[-1px] leading-[1em] text-[60px] ">
+          <h1 className="md:hidden text-black font-semibold tracking-[-1px] leading-[1em] text-[50px] sm:text-[60px] ">
             Get Hyped.
             <br />
              Get
@@ -157,7 +157,7 @@ const Hero = () => {
 
             const baseClass = `
               relative shrink-0
-              w-[185px] h-[230px]
+              w-[52%] h-[230px]
               sm:w-[200px] sm:h-[270px]
               md:w-[220px] md:h-[295px]
               lg:w-[250px] lg:h-[330px]

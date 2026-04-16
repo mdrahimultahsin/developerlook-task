@@ -8,7 +8,7 @@ const ContentIntro = () => {
     <section className=" px-4 md:px-8  py-16 md:py-28">
       <div className="mx-auto max-w-350">
         <div className="sm:max-w-240 md:max-w-245 md:ml-22">
-          <h2 className="text-black text-[34px] tracking-[-1.46023px] md:tracking-[-2.56px] font-semibold leading-9 md:leading-16 sm:text-[52px]  md:text-[64px]">
+          <h2 className="text-black text-[30px] tracking-[-1.46023px] md:tracking-[-2.56px] font-semibold leading-8 sm:leading-9 md:leading-16 sm:text-[52px]  md:text-[64px]">
             Wij maken content die opvalt. Die blijft hangen. Die jouw doelgroep
             raakt en jouw merk in beweging brengt. Snel, krachtig en energiek.
           </h2>
