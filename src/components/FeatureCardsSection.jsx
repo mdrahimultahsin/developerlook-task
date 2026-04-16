@@ -1,5 +1,6 @@
 import React, { createRef, useMemo, useLayoutEffect, useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
+// eslint-disable-next-line no-unused-vars
 import { motion, useScroll, useTransform } from "framer-motion";
 
 import cardVideo1 from "../assets/video/card-video1.mp4";
@@ -71,7 +72,7 @@ const STICKY_TOP = "24px";
 const FeatureCard = ({
   item,
   index,
-  total,
+ 
   selfRef,
   nextCardRef,
   isLast,
