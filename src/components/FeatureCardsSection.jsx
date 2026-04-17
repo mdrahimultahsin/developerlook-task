@@ -1,8 +1,9 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import cardVideo1 from "../assets/video/card-video1.mp4";
 import cardVideo2 from "../assets/video/card-video2.mp4";
 import cardVideo3 from "../assets/video/card-video3.mp4";
 import cardVideo4 from "../assets/video/card-video4.mp4";
+import cardPoster from "../assets/card-poster1.png"
 import {FaArrowRight} from "react-icons/fa";
 
 
@@ -66,6 +67,7 @@ const features = [
 ];
 
 const FeatureCardsSection = () => {
+  const [loadedVideos, setLoadedVideos] = useState({});
   useEffect(() => {
     const cards = document.querySelectorAll(".sticky-card");
     let rafId = null;
@@ -159,18 +161,31 @@ origin-top will-change-[transform,filter] transform-3d backface-hidden`}
                 </div>
 
                 <div className="mt-5 relative w-full max-w-30 shrink-0 md:hidden">
-                  <div
-                    className={`overflow-hidden rounded-2xl border-[6px] ${item.cardBorder} -rotate-4`}
-                  >
-                    <video
-                      src={item.video}
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      className="h-35 w-full object-cover"
-                    />
-                  </div>
+                 <div className="relative overflow-hidden rounded-2xl border-[6px] ${item.cardBorder} -rotate-4">
+  
+  {!loadedVideos[`m-${index}`] && (
+    <img
+      src={cardPoster}
+      alt="poster"
+      className="absolute inset-0 h-35 w-full object-cover"
+    />
+  )}
+
+  <video
+    src={item.video}
+    autoPlay
+    muted
+    loop
+    playsInline
+    preload="metadata"
+    onLoadedData={() =>
+      setLoadedVideos((prev) => ({ ...prev, [`m-${index}`]: true }))
+    }
+    className={`h-35 w-full object-cover transition-opacity duration-500 ${
+      loadedVideos[`m-${index}`] ? "opacity-100" : "opacity-0"
+    }`}
+  />
+</div>
                 </div>
 
                 <div className="mt-8 md:mt-12 max-w-140 lg:mt-auto lg:pt-0">
@@ -227,18 +242,31 @@ origin-top will-change-[transform,filter] transform-3d backface-hidden`}
               </div>
 
               <div className="relative mx-auto hidden w-full max-w-90 shrink-0 md:block lg:mx-0 lg:max-w-80 mt-15">
-                <div
-                  className={`overflow-hidden rounded-[30px] border-[6px] ${item.cardBorder} rotate-2`}
-                >
-                  <video
-                    src={item.video}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="h-105 w-full object-cover md:h-125 lg:h-100"
-                  />
-                </div>
+                <div className={`relative overflow-hidden rounded-[30px] border-[6px] ${item.cardBorder} rotate-2`}>
+  
+  {!loadedVideos[`d-${index}`] && (
+    <img
+      src={cardPoster}
+      alt="poster"
+      className="absolute inset-0 h-105 w-full object-cover md:h-125 lg:h-100"
+    />
+  )}
+
+  <video
+    src={item.video}
+    autoPlay
+    muted
+    loop
+    playsInline
+    preload="metadata"
+    onLoadedData={() =>
+      setLoadedVideos((prev) => ({ ...prev, [`d-${index}`]: true }))
+    }
+    className={`h-105 w-full object-cover md:h-125 lg:h-100 transition-opacity duration-500 ${
+      loadedVideos[`d-${index}`] ? "opacity-100" : "opacity-0"
+    }`}
+  />
+</div>
               </div>
             </div>
           </article>

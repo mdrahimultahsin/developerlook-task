@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import girlImage from "../assets/content-intro-img.webp";
 import {BsArrowDown, BsArrowRight} from "react-icons/bs";
 import {FaArrowDown} from "react-icons/fa";
 import videoSrc from "../assets/video/intro-video.mp4"
 const ContentIntro = () => {
+  const [videoLoaded, setVideoLoaded] = useState(false);
   return (
     <section className=" px-4 md:px-8  py-16 md:py-28">
       <div className="mx-auto max-w-350">
@@ -16,19 +17,27 @@ const ContentIntro = () => {
 
         <div className="mt-10 sm:mt-15 md:mt-20    gap-10 flex flex-col items-center sm:flex-row md:items-center sm:items-end md:gap-16 lg:gap-60">
         <div className="relative w-[80%] max-w-70 h-75 md:w-64 md:h-80 rotate-3 md:rotate-0 overflow-hidden rounded-xl">
+  
+  {/* Image (always visible until video loads) */}
   <img
     src={girlImage}
     alt="Team portrait"
-    className="hidden sm:block h-full w-full object-cover"
+    className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
+      videoLoaded ? "opacity-0" : "opacity-100"
+    }`}
   />
 
+  {/* Video */}
   <video
     src={videoSrc}
     autoPlay
     muted
     loop
     playsInline
-    className="sm:hidden h-full w-full object-cover"
+    onLoadedData={() => setVideoLoaded(true)}
+    className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
+      videoLoaded ? "opacity-100" : "opacity-0"
+    }`}
   />
 </div>
 

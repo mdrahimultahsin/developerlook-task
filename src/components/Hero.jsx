@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import video1 from "../assets/video/Loop Salontopper.mp4";
 import video2 from "../assets/video/petrolhead-loop.mp4";
-
+import poster1 from "../assets/hero-poster1.png"
+import poster2 from "../assets/hero-poster2.png"
 const cards = [
   {
     title: "10M+",
@@ -18,6 +19,7 @@ const cards = [
   {
     video: video1,
     type: "video",
+     thumbnail: poster1,
     rotateA: 5,
     rotateB: -5,
     y: 14,
@@ -39,6 +41,7 @@ const cards = [
   {
     video: video2,
     type: "video",
+      thumbnail: poster2,
     rotateA: -2,
     rotateB: 6,
     y: -8,
@@ -49,6 +52,7 @@ const cards = [
 
 const Hero = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [loadedVideos, setLoadedVideos] = useState({});
   const [flippedMap, setFlippedMap] = useState({});
   const [screenWidth, setScreenWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 1280
@@ -205,18 +209,31 @@ const Hero = () => {
             }
 
             return (
-              <div {...sharedProps}>
-                <video
-                  src={item.video}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className={`h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                    isHovered ? "scale-[1.04]" : "scale-100"
-                  }`}
-                />
-              </div>
+          <div {...sharedProps}>
+  {/* Thumbnail */}
+  {!loadedVideos[index] && (
+    <img
+      src={item.thumbnail}
+      alt="video thumbnail"
+      className="absolute inset-0 w-full h-full object-cover"
+    />
+  )}
+
+  {/* Video */}
+  <video
+    src={item.video}
+    autoPlay
+    muted
+    loop
+    playsInline
+    onLoadedData={() =>
+      setLoadedVideos((prev) => ({ ...prev, [index]: true }))
+    }
+    className={`h-full w-full object-cover transition-all duration-700 ${
+      isHovered ? "scale-[1.04]" : "scale-100"
+    } ${loadedVideos[index] ? "opacity-100" : "opacity-0"}`}
+  />
+</div>
             );
           })}
         </div>
